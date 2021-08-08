@@ -1,0 +1,34 @@
+{% load static %}
+
+<style>
+  .hello-lg{
+    font-size: 18px;
+    color: rgb(255, 255, 255);
+    margin-right: 20px;
+  } 
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+      <img src="{% static 'images/logo.svg' %}" alt="" width="30" height="24" class="d-inline-block align-text-top">
+      Bootstrap
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        {% if request.user.is_staff %}
+        <a class="nav-item nav-link" href="{% url 'home' %}">Главная</a>
+        <a class="nav-item nav-link" href="{% url 'products' %}">Продукты</a>
+        {% else %}
+        <a class="nav-item nav-link" href="{% url 'settingsuser' %}">Настройки</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <span class='hello-lg'>{{request.user}}</span>
+    <span class='hello-lg'><a href="{% url 'logout' %}">Выйти</a></span>
+
+    
+</nav>

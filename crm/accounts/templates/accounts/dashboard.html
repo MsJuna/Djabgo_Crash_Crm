@@ -1,0 +1,64 @@
+{% extends 'accounts/main.html' %}
+
+{% block content %}
+
+{% include 'accounts/status.html' %}
+
+<br>
+<div class="row">
+    <div class="col-md-5">
+        <h5 style="text-align: center">ПОЛЬЗОВАТЕЛИ:</h5>
+        <hr>
+        <div class="card card-body">
+            <a class="btn btn-primary btn-sm btn-block" href="">Создать пользователя
+            </a>
+            <table class="table table-sm">
+                <tr>
+                    <th></th>
+                    <th>Клиент</th>
+                    <th>Телефон</th>
+                    
+                </tr>
+                {% for customer in customers %}
+                <tr>
+                    <td><a href="{% url 'customer' customer.id %}" class="btn btn-sm btn-info">Просмотр</a></td>
+                    <td>{{ customer.name }}</td>
+                    <td>{{ customer.phone }}</td>
+                
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+    <div class="col-md-7">
+        <h5 style="text-align: center">ПОСЛЕДНИЕ 5 ЗАКАЗОВ:</h5>
+        <hr>
+        <div class="card card-body">
+    
+            <table class="table table-sm">
+                <tr>
+                    <th>Продукт</th>
+                    <th>Дата заказа</th>
+                    <th>Статус</th>
+                    <th>Обновить</th>
+                    <th>Стереть</th>
+                </tr>
+                
+                {% for order in orders %}
+                    <tr>
+                        <td>{{ order.product }}</td>
+                        <td>{{ order.data_created }}</td>
+                        <td>{{ order.status }}</td>
+                        <td><a href="{% url 'upgrade_order' order.id %}" class="btn btn-sm btn-info">Обновить</a></td>
+                        <td><a href="{% url 'delete_order' order.id %}" class="btn btn-sm btn-danger">Удалить</a></td>
+                    </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}

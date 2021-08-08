@@ -1,0 +1,80 @@
+{% extends 'accounts/main.html' %}
+
+{% block content %}
+
+<br>
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h5 style="text-align: center">Пользователь:</h5>
+			<hr>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="">Обновить пользователя</a>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'created_order' costumer.id %}">Создать заказ</a>
+			
+
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5 style="text-align: center">Контактная информация</h5>
+			<hr>
+			<p>Email: <strong >{{ costumer.email }}</strong></p>
+			<p>Phone: <strong>{{ costumer.phone }}</strong></p>
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5 style="text-align: center">Всего заказов</h5>
+			<hr>
+			<h1 style="text-align: center;padding: 10px">{{ total_orders }}</h1>
+		</div>
+	</div>
+</div>
+
+
+<br>
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<form method="get">
+				{{ myfilter.form }}
+		        <button class="btn btn-primary" type="submit">Поиск</button>
+		    </form>
+		</div>
+	</div>
+	
+</div>
+<br>
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>Продукт</th>
+					<th>Note</th>
+					<th>Дата заказа</th>
+					<th>Статус</th>
+					<th>Обновить</th>
+					<th>Удалить</th>
+				</tr>
+				{% for order in orders %}
+					<tr>
+						<td>{{ order.product.name }}</td>
+						<td>{{ order.note }}</td>
+						<td>{{ order.data_created }}</td>
+						<td>{{ order.status }}</td>
+						<td><a href="{% url 'upgrade_order' order.id %}" class="btn btn-sm btn-info">Обновить</a></td>
+						<td><a href="{% url 'delete_order' order.id %}" class="btn btn-sm btn-danger">Стереть</a></td>
+					</tr>
+
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+</div>
+{% endblock content %}
